@@ -62,7 +62,7 @@ public class BookManager : Singleton<BookManager>
     void AssignBooks(){
 
         books.Add(new Book("ABC Ayo Belajar Membaca",
-         "Kumpulan bentuk-bentuk huruf Alphabet beserta contohnya" ,
+         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim" ,
          "Nasir Nugroho", "Nasir Nugroho", "5-10", "27", "2-5", "PIKO")
          );
 

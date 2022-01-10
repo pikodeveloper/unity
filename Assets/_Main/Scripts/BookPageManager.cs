@@ -85,15 +85,35 @@ public class BookPageManager : Singleton<BookPageManager>
         //Instantiate bookPage
         for (int i = 0; i < bookSprites.Length; i++)
         {
-            if(i == 0){
-                // newPage.GetComponent<Image>().SetNativeSize();
-            }
+            
             GameObject newPage = Instantiate(bookPagePrefab, transform);
             newPage.GetComponent<Image>().sprite = bookSprites[i];
             newPage.name = "Page_" + i;
-
+            
+            SetPageSize(newPage.GetComponent<RectTransform>());
+            
         }
+
         
+        
+    }
+
+    void SetPageSize(RectTransform pageRect){
+        
+            pageRect.anchorMin = new Vector2(0,0.5f);
+            pageRect.anchorMax = new Vector2(1,0.5f);
+
+            //right
+            pageRect.offsetMax = new Vector2(0, pageRect.offsetMax.y);
+            //left
+            pageRect.offsetMin = new Vector2(0, pageRect.offsetMin.y);
+            
+            float stretchedWidth = pageRect.rect.width;
+
+            pageRect.anchorMin = new Vector2(0.5f,0.5f);
+            pageRect.anchorMax = new Vector2(0.5f,0.5f);
+            
+            pageRect.sizeDelta = new Vector2(stretchedWidth,stretchedWidth);
     }
 
     public void SetBookSprites(Sprite[] bookSprites){

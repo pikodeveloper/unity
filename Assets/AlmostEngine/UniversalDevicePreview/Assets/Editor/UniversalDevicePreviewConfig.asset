@@ -438,9 +438,9 @@ MonoBehaviour:
   m_GalleryPaddingVertical: 10
   m_GalleryTextHeight: 30
   m_GalleryBorderSize: 2
-  m_Selected: 2
+  m_Selected: 10
   m_PreviewGalleryZoom: 0.38
-  m_PreviewZoom: 1
+  m_PreviewZoom: 0.88
   m_RefreshMode: 0
   m_AutoRefresh: 0
   m_RefreshDelay: 2
