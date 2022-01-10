@@ -34,7 +34,7 @@ public class BookPageManager : Singleton<BookPageManager>
     }
 
     public void OnSwipeLeft(){
-        if(bookPageIndex < pageCount){
+        if(bookPageIndex < pageCount - 1){
             transform.GetChild(bookPageIndex).gameObject.SetActive(false);
             bookPageIndex++;
             transform.GetChild(bookPageIndex).gameObject.SetActive(true);
@@ -85,6 +85,9 @@ public class BookPageManager : Singleton<BookPageManager>
         //Instantiate bookPage
         for (int i = 0; i < bookSprites.Length; i++)
         {
+            if(i == 0){
+                continue;
+            }
             
             GameObject newPage = Instantiate(bookPagePrefab, transform);
             newPage.GetComponent<Image>().sprite = bookSprites[i];
