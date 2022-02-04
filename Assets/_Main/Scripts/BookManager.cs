@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class BookManager : Singleton<BookManager>
 {
-    [SerializeField] private GameObject mainBookPage;
+    [SerializeField] private GameObject mainBook;
+    [SerializeField] private GameObject frontPage;
+    [SerializeField] private GameObject readerPage;
     [SerializeField] private List<Book> books = new List<Book>();
 
     [SerializeField] private Sprite[] bookSprites_0;
-    [SerializeField] private Sprite[] bookSprites_1;
-    [SerializeField] private Sprite[] bookSprites_2;
-    [SerializeField] private Sprite[] bookSprites_3;
-    [SerializeField] private Sprite[] bookSprites_4;
-    [SerializeField] private Sprite[] bookSprites_5;
-   
+
+    private enum BookState
+    {
+        FrontPage,
+        ReaderPage
+    }
+
+    private BookState bookState;   
 
 
     // Start is called before the first frame update
@@ -23,8 +27,7 @@ public class BookManager : Singleton<BookManager>
     }
 
     public void ChooseBookToOpen(int bookIndex){
-        mainBookPage.SetActive(true);
-        
+        mainBook.SetActive(true);        
 
         Sprite[] tempBookSprites = null;
         switch (bookIndex)
@@ -32,21 +35,7 @@ public class BookManager : Singleton<BookManager>
             case 0:
                 tempBookSprites = bookSprites_0;
                 break;
-            case 1:
-                tempBookSprites = bookSprites_1;
-                break;
-            case 2:
-                tempBookSprites = bookSprites_2;
-                break;
-            case 3:
-                tempBookSprites = bookSprites_3;
-                break;
-            case 4:
-                tempBookSprites = bookSprites_4;
-                break;
-            case 5:
-                tempBookSprites = bookSprites_5;
-                break;
+            
             default:
                 tempBookSprites = bookSprites_0;
                 break;
@@ -57,27 +46,42 @@ public class BookManager : Singleton<BookManager>
 
         //Open Book
         BookPageManager.Instance.OpenBook(books[bookIndex], bookIndex);
+        bookState = BookState.FrontPage;
     }
 
     void AssignBooks(){
 
         books.Add(new Book("ABC Ayo Belajar Membaca",
          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim" ,
-         "Nasir Nugroho", "Nasir Nugroho", "5-10", "27", "2-5", "PIKO")
+         "Risma El Jundi", "Someone", "5-10", "27", "2-5", "PIKO Original")
          );
 
-        books.Add(new Book("Belajar Sholat Bersama Ali",
-         "Buku belajar sholat, mengenalkan anak gerakan-gerakan dasar sholat" ,
-         "Bilal Surya", "Bilal Surya", "5-10", "13", "7-11", "PIKO")
-         );
-
-         books.Add(new Book("Mengenal Banyak Hewan",
-         "Ayo mengenal nama-nama hewan!" ,
-         "Nasir Nugroho", "Nasir Nugroho", "5-10", "30", "2-7", "PIKO")
-         );
+        
     }
 
     public Book GetBook(int bookIndex){
         return books[bookIndex];
+    }
+
+    public void Read(){
+        frontPage.SetActive(false);
+        readerPage.SetActive(true);
+        bookState = BookState.ReaderPage;
+    }
+
+    public void Back(){
+        switch (bookState)
+        {
+            case BookState.FrontPage :
+                mainBook.SetActive(false);
+                break;
+            case BookState.ReaderPage :
+                readerPage.SetActive(false);
+                frontPage.SetActive(true);
+                bookState = BookState.FrontPage;
+                break;
+            default:
+                break;
+        }
     }
 }

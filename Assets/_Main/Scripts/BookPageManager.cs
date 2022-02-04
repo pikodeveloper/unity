@@ -79,7 +79,8 @@ public class BookPageManager : Singleton<BookPageManager>
         //Destroy previous bookPage
         for (int i = 1; i < transform.childCount; i++)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            // Destroy(transform.GetChild(i).gameObject);
+            transform.GetChild(i).gameObject.SetActive(false);
         }
 
         //Instantiate bookPage
