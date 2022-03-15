@@ -39,6 +39,20 @@ namespace SimpleHTTP {
 			return "status: " + status.ToString () + " - response: " + body.ToString ();
 		}
 
+		public string WrapJSONArray(string className) {
+			string bodyString = body.ToString();
+			bool isArray = bodyString[0] == '[';
+
+			if(!isArray){
+				bodyString = "[" + bodyString + "]";
+			}
+			
+			string jsonWrap = "{" + '"' + className + "\": " + bodyString + " }"; 
+			
+			return jsonWrap;
+			
+		}
+
 		public static Response From(UnityWebRequest www) {
 			return new Response (www.responseCode, www.downloadHandler.text, www.downloadHandler.data);
 		}

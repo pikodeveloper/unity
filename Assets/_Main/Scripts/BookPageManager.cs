@@ -57,24 +57,19 @@ public class BookPageManager : Singleton<BookPageManager>
         pageCount = bookSprites.Length;
         bookPageIndex = 0;
 
-        //Set Loved Image
-        if(BookManager.Instance.GetBook(bookIndex).GetLoved()){            
-            loveImage.sprite = loveSprites[1];
-        }else{            
-            loveImage.sprite = loveSprites[0];
-        }
+        
 
         //Change Front Page Variables
         frontPage.SetActive(true);
         coverImage.sprite = bookSprites[0];        
-        titleText.text = openedBook.GetTitle();
-        descText.text = openedBook.GetDescription();
-        authorText.text = openedBook.GetAuthor();
-        illustratorText.text = openedBook.GetIllustrator();
-        readingTimeText.text = openedBook.GetReadingTime() + " menit";
-        pageCountText.text = openedBook.GetPageCount();
-        ageRangeText.text = openedBook.GetAgeRange();
-        publisherText.text = openedBook.GetPublisher();
+        // titleText.text = openedBook.GetTitle();
+        // descText.text = openedBook.GetDescription();
+        // authorText.text = openedBook.GetAuthor();
+        // illustratorText.text = openedBook.GetIllustrator();
+        // readingTimeText.text = openedBook.GetReadingTime() + " menit";
+        // pageCountText.text = openedBook.GetPageCount();
+        // ageRangeText.text = openedBook.GetAgeRange();
+        // publisherText.text = openedBook.GetPublisher();
 
         //Destroy previous bookPage
         for (int i = 1; i < transform.childCount; i++)
@@ -125,13 +120,5 @@ public class BookPageManager : Singleton<BookPageManager>
         this.bookSprites = bookSprites;
     }
 
-    public void LoveBook(){
-        if(BookManager.Instance.GetBook(bookIndex).GetLoved()){
-            BookManager.Instance.GetBook(bookIndex).SetLoved(false);
-            loveImage.sprite = loveSprites[0];
-        }else{
-            BookManager.Instance.GetBook(bookIndex).SetLoved(true);
-            loveImage.sprite = loveSprites[1];
-        }
-    }
+    
 }
