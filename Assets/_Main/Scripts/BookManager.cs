@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BookManager : Singleton<BookManager>
 {
@@ -9,6 +10,7 @@ public class BookManager : Singleton<BookManager>
     [SerializeField] private GameObject readerPage;    
 
     [SerializeField] private Sprite[] bookSprites_0;
+    [SerializeField] private Text storyText;
 
     private enum BookState
     {
@@ -18,6 +20,8 @@ public class BookManager : Singleton<BookManager>
 
     private BookState bookState;   
 
+    private Book currentBook;
+    private Sprite currentBookCover;
 
     // Start is called before the first frame update
     void Start()
@@ -25,33 +29,27 @@ public class BookManager : Singleton<BookManager>
     
     }
 
-    public void ChooseBookToOpen(int bookIndex){
+    public void OpenMainBook(Book book, Sprite coverSprite){
+
+        //Open Main Book
         mainBook.SetActive(true);        
-
-        Sprite[] tempBookSprites = null;
-        switch (bookIndex)
-        {
-            case 0:
-                tempBookSprites = bookSprites_0;
-                break;
-            
-            default:
-                tempBookSprites = bookSprites_0;
-                break;
-        }
-
-        //
-        BookPageManager.Instance.SetBookSprites(tempBookSprites);
-
-        //Open Book
-        // BookPageManager.Instance.OpenBook(books[bookIndex], bookIndex);
+        currentBook = book;
+        currentBookCover = coverSprite;
+        BookPageManager.Instance.OpenBook(book, coverSprite);
         bookState = BookState.FrontPage;
     }
 
     public void Read(){
+        BookStoryController.Instance.CallShowAPI(currentBook.slug);
+    }
+
+    public void OpenReaderPage(string story){
         frontPage.SetActive(false);
         readerPage.SetActive(true);
         bookState = BookState.ReaderPage;
+
+        ReaderManager.Instance.SetupReader(currentBookCover, story);
+        
     }
 
     public void Back(){

@@ -6,7 +6,8 @@ using SimpleHTTP;
 public class APIController : Singleton<APIController>
 {
     private const string baseURL = "http://127.0.0.1:8000/api/";
-    private string token = "1|Az0l8ulOYnOkuDwCIK0YFlxx5b4xVx83FnqtMhNN";
+    // private string token = "1|VJwwTzX7Gv8KISbyKt9DajdqyUONcZp4n6W3BdHR";
+	private string token = "";
     
     public void Get(string url, System.Action<Client> callback , List<string> parameters = null){
         StartCoroutine(GetIE(url,callback, parameters));

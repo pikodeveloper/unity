@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleHTTP;
 
-public class BookStoryController : MonoBehaviour
+public class BookStoryController : Singleton<BookStoryController>
 {
 
     void Start(){
-        // CallShowAPI();
+        // CallShowAPI("piro-si-bajak-laut-dan-permata-duyung");
     }
-    public void CallShowAPI(){
-        List<string> parameters = new List<string>(){"molestias-quis-eaque-fugiat-dolorem-ut-minima-iusto-itaque-dolores-neque-autem"};
+
+    public void CallShowAPI(string slug){
+        List<string> parameters = new List<string>(){slug};
         APIController.Instance.Get("book/story/show",CallShowAPIResponse, parameters);
     }
 
@@ -29,11 +30,12 @@ public class BookStoryController : MonoBehaviour
                 Debug.Log(wrappedJSON);
 
                 BookStoryCollection bookStoryCollection = JsonUtility.FromJson<BookStoryCollection>(wrappedJSON);
-                            
-                foreach (BookStory bookStory in bookStoryCollection.bookStories)
-                {
-                    Debug.Log(bookStory.value);
-                }
+
+                string story = bookStoryCollection.bookStories[0].value;
+                
+                BookManager.Instance.OpenReaderPage(story);
+                
+                
                 
             } else {
                 Debug.Log(resp.ToString());

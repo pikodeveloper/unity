@@ -51,47 +51,40 @@ public class BookPageManager : Singleton<BookPageManager>
         }
     }
 
-    public void OpenBook(Book openedBook, int openedBookIndex){
-        
-        bookIndex = openedBookIndex;
-        pageCount = bookSprites.Length;
-        bookPageIndex = 0;
-
-        
+    public void OpenBook(Book openedBook, Sprite coverSprite){                       
 
         //Change Front Page Variables
         frontPage.SetActive(true);
-        coverImage.sprite = bookSprites[0];        
-        // titleText.text = openedBook.GetTitle();
-        // descText.text = openedBook.GetDescription();
-        // authorText.text = openedBook.GetAuthor();
-        // illustratorText.text = openedBook.GetIllustrator();
-        // readingTimeText.text = openedBook.GetReadingTime() + " menit";
-        // pageCountText.text = openedBook.GetPageCount();
-        // ageRangeText.text = openedBook.GetAgeRange();
-        // publisherText.text = openedBook.GetPublisher();
+        coverImage.sprite = coverSprite;        
+        titleText.text = openedBook.title;
+        descText.text = openedBook.description;
+        authorText.text = openedBook.author_name;
+        illustratorText.text = openedBook.illustrator_name;
+        readingTimeText.text = openedBook.reading_minute + " Menit";        
+        ageRangeText.text = openedBook.age_min + " - " + openedBook.age_max + " Tahun";
+        publisherText.text = openedBook.publisher.name;
 
         //Destroy previous bookPage
         for (int i = 1; i < transform.childCount; i++)
         {
             // Destroy(transform.GetChild(i).gameObject);
-            transform.GetChild(i).gameObject.SetActive(false);
+            // transform.GetChild(i).gameObject.SetActive(false);
         }
 
         //Instantiate bookPage
-        for (int i = 0; i < bookSprites.Length; i++)
-        {
-            if(i == 0){
-                continue;
-            }
+        // for (int i = 0; i < bookSprites.Length; i++)
+        // {
+        //     if(i == 0){
+        //         continue;
+        //     }
             
-            GameObject newPage = Instantiate(bookPagePrefab, transform);
-            newPage.GetComponent<Image>().sprite = bookSprites[i];
-            newPage.name = "Page_" + i;
+        //     GameObject newPage = Instantiate(bookPagePrefab, transform);
+        //     newPage.GetComponent<Image>().sprite = bookSprites[i];
+        //     newPage.name = "Page_" + i;
             
-            SetPageSize(newPage.GetComponent<RectTransform>());
+        //     SetPageSize(newPage.GetComponent<RectTransform>());
             
-        }
+        // }
 
         
         
